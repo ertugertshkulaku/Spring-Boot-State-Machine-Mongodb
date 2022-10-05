@@ -1,0 +1,113 @@
+[
+
+  {
+    "@id": "10",
+    "_class": "org.springframework.statemachine.data.mongodb.MongoDbRepositoryAction",
+    "spel": "T(System).err.println('Wake up lazy!')"
+  },
+  {
+    "@id": "11",
+    "_class": "org.springframework.statemachine.data.mongodb.MongoDbRepositoryAction",
+    "spel": "T(System).err.println('No coffee!')"
+  },
+  {
+    "@id": "12",
+    "_class": "org.springframework.statemachine.data.mongodb.MongoDbRepositoryAction",
+    "spel": "T(System).err.println('Wake up the testing team, the sun is high!')"
+  },
+  {
+    "@id": "13",
+    "_class": "org.springframework.statemachine.data.mongodb.MongoDbRepositoryAction",
+    "spel": "T(System).err.println('All sleep! the client is satisfied.')"
+  },
+
+  {
+    "@id": "15",
+    "_class": "org.springframework.statemachine.data.mongodb.MongoDbRepositoryAction",
+    "spel": "T(System).err.println('true')"
+  },
+  {
+    "@id": "14",
+    "_class": "org.springframework.statemachine.data.mongodb.MongoDbRepositoryGuard",
+    "spel": "T(System).err.println('true')"
+  },
+
+  {
+    "@id": "1",
+    "_class": "org.springframework.statemachine.data.mongodb.MongoDbRepositoryState",
+    "initial": true,
+    "state": "BACKLOG",
+    "initialAction": "10"
+  },
+  {
+    "@id": "2",
+    "_class": "org.springframework.statemachine.data.mongodb.MongoDbRepositoryState",
+    "initial": false,
+    "state": "IN_PROGRESS",
+    "stateActions": ["11"]
+  },
+  {
+    "@id": "3",
+    "_class": "org.springframework.statemachine.data.mongodb.MongoDbRepositoryState",
+    "initial": false,
+    "state": "TESTING",
+    "stateActions": ["12"]
+  },
+  {
+    "@id": "4",
+    "_class": "org.springframework.statemachine.data.mongodb.MongoDbRepositoryState",
+    "initial": false,
+    "state": "DONE",
+    "stateActions": ["13"]
+  },
+  {
+    "_class": "org.springframework.statemachine.data.mongodb.MongoDbRepositoryTransition",
+    "source": "1",
+    "target": "2",
+    "event": "START_FEATURE",
+    "kind": "EXTERNAL"
+  },
+  {
+    "_class": "org.springframework.statemachine.data.mongodb.MongoDbRepositoryTransition",
+    "source": "2",
+    "target": "3",
+    "event": "FINISH_FEATURE",
+    "guard": "14",
+    "kind": "EXTERNAL"
+  },
+  {
+    "_class": "org.springframework.statemachine.data.mongodb.MongoDbRepositoryTransition",
+    "source": "3",
+    "target": "4",
+    "event": "QA_CHECKED_UC",
+    "kind": "EXTERNAL"
+  },
+  {
+    "_class": "org.springframework.statemachine.data.mongodb.MongoDbRepositoryTransition",
+    "source": "4",
+    "target": "2",
+    "event": "QA_REJECTED_UC",
+    "kind": "EXTERNAL"
+  },
+  {
+    "_class": "org.springframework.statemachine.data.mongodb.MongoDbRepositoryTransition",
+    "source": "1",
+    "target": "3",
+    "event": "ROCK_STAR_DOUBLE_TASK",
+    "kind": "EXTERNAL"
+  },
+  {
+    "_class": "org.springframework.statemachine.data.mongodb.MongoDbRepositoryTransition",
+    "source": "2",
+    "event": "DEPLOY",
+    "kind": "INTERNAL",
+    "actions": ["15"]
+  },
+  {
+    "_class": "org.springframework.statemachine.data.mongodb.MongoDbRepositoryTransition",
+    "source": "1",
+    "event": "DEPLOY",
+    "kind": "INTERNAL",
+    "actions": ["15"]
+  }
+]
