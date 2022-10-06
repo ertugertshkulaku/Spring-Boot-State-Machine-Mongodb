@@ -38,7 +38,6 @@ public class SmController {
     @GetMapping(value = "/entity1/")
     public ResponseEntity<Void> changeEvent(@RequestParam String entity1Id, @RequestParam String event) {
         String machineId = String.valueOf(entity1Id);
-        machineId = "";
         StateMachine<String, String> sm = stateEntity1EventStateMachineService.acquireStateMachine(machineId);
         log.info("entity1Id {}, event {}", entity1Id, event);
         log.info("event {}", sm.getState().getId());
