@@ -34,7 +34,7 @@ public class SmConfig extends StateMachineConfigurerAdapter<String, String> {
     @Autowired
     private StateMachineRuntimePersister<String, String, String> stateMachineRuntimePersister;
 
-  /*  @Autowired
+    @Autowired
     private  StateRepository<? extends RepositoryState> stateRepository;
 
     @Autowired
@@ -46,10 +46,10 @@ public class SmConfig extends StateMachineConfigurerAdapter<String, String> {
     private  GuardRepository<? extends RepositoryGuard> guardRepository;
 
     @Autowired
-    private  ResourceLoader resourceLoader;*/
+    private  ResourceLoader resourceLoader;
 
 
-    @Override
+   /* @Override
     public void configure(StateMachineConfigurationConfigurer<String, String> config) throws Exception {
         config.withPersistence().runtimePersister(stateMachineRuntimePersister);
         config.withConfiguration().autoStartup(false);
@@ -139,16 +139,16 @@ public class SmConfig extends StateMachineConfigurerAdapter<String, String> {
             log.warn("DEPLOY: Rolling out to pre-production.");
             stateContext.getExtendedState().getVariables().put("deployed", true);
         };
-    }
+    }*/
 
-   /* @Bean
+    @Bean
     public StateMachineJackson2RepositoryPopulatorFactoryBean Jackson2RepositoryPopulateFactoryBean(){
         log.debug("BEGIN: [{}]");
         StateMachineJackson2RepositoryPopulatorFactoryBean factoryBean = new StateMachineJackson2RepositoryPopulatorFactoryBean();
         try {
             if (!checkIfExistStateTransitionGuardActionOnDb()) {
                 Resource[] resources = ResourcePatternUtils
-                        .getResourcePatternResolver(resourceLoader).getResources("classpath*:test_state.json");
+                        .getResourcePatternResolver(resourceLoader).getResources("classpath*:data.json");
                 factoryBean.setResources(resources);
             }
         }catch (IOException e){
@@ -172,6 +172,7 @@ public class SmConfig extends StateMachineConfigurerAdapter<String, String> {
     public void configure(StateMachineConfigurationConfigurer<String, String> config) throws Exception {
         config.withPersistence()
                 .runtimePersister(stateMachineRuntimePersister);
+        config.withConfiguration().autoStartup(false);
     }
 
 
@@ -185,5 +186,5 @@ public class SmConfig extends StateMachineConfigurerAdapter<String, String> {
     @Bean
     public StateMachineModelFactory<String, String> modelFactory() {
         return new RepositoryStateMachineModelFactory(stateRepository, transitionRepository);
-    }*/
+    }
 }

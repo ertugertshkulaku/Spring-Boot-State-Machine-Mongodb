@@ -4,18 +4,24 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import org.springframework.statemachine.StateMachinePersist;
+import org.springframework.statemachine.data.mongodb.MongoDbPersistingStateMachineInterceptor;
 import org.springframework.statemachine.data.mongodb.MongoDbStateMachineRepository;
 
+import org.springframework.statemachine.persist.DefaultStateMachinePersister;
+import org.springframework.statemachine.persist.StateMachinePersister;
 import org.springframework.statemachine.persist.StateMachineRuntimePersister;
+
+import java.util.UUID;
 
 
 @Slf4j
 @Configuration
 public class MongoConfig {
 
-   /* private final MongoDbStateMachineRepository mongodbStateMachineRepository;
+    //private final MongoDbStateMachineRepository mongodbStateMachineRepository;
 
-    public MongoConfig(MongoDbStateMachineRepository mongodbStateMachineRepository) {
+/*    public MongoConfig(MongoDbStateMachineRepository mongodbStateMachineRepository) {
         this.mongodbStateMachineRepository = mongodbStateMachineRepository;
     }*/
 
@@ -26,14 +32,14 @@ public class MongoConfig {
     }
 
 
-   /* @Bean
-    public StateMachineRuntimePersister<String, String, String> stateMachineRuntimePersisted() {
+  /*  @Bean
+    public StateMachineRuntimePersister<String, String, UUID> stateMachineRuntimePersisted() {
         return new MongoDbPersistingStateMachineInterceptor<>(mongodbStateMachineRepository);
-    }*/
+    }
 
- /*    @Bean
-    public StateMachinePersister<String, String, String> persisted(
-            StateMachinePersist<String, String, String> defaultPersist) {
+     @Bean
+    public StateMachinePersister<String, String, UUID> persisted(
+            StateMachinePersist<String, String, UUID> defaultPersist) {
         return new DefaultStateMachinePersister<>(defaultPersist);
     }*/
 

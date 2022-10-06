@@ -2,10 +2,13 @@ package com.example.sm.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.statemachine.config.AbstractStateMachineConfigurerAdapter;
 import org.springframework.statemachine.config.StateMachineFactory;
 import org.springframework.statemachine.persist.StateMachineRuntimePersister;
 import org.springframework.statemachine.service.DefaultStateMachineService;
 import org.springframework.statemachine.service.StateMachineService;
+
+import java.util.UUID;
 
 @Configuration
 public  class Entity1ServiceConfig {
