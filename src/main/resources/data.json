@@ -21,6 +21,7 @@
 {
 "@id": "1",
 "_class": "org.springframework.statemachine.data.mongodb.MongoDbRepositoryState",
+
 "initial": true,
 "state": "S1",
 "exitActions": ["10"]
@@ -28,6 +29,7 @@
 {
 "@id": "2",
 "_class": "org.springframework.statemachine.data.mongodb.MongoDbRepositoryState",
+
 "initial": false,
 "state": "S2",
 "entryActions": ["11"]

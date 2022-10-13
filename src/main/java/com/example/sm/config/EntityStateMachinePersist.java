@@ -24,7 +24,6 @@ import java.util.UUID;
 @Slf4j
 @Component
 public class EntityStateMachinePersist implements StateMachinePersist<String, String, String> {
-
     private final EntityContextRepository repository;
 
     public EntityStateMachinePersist(EntityContextRepository repository) {
