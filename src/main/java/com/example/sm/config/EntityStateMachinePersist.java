@@ -57,14 +57,6 @@ public class EntityStateMachinePersist implements StateMachinePersist<String, St
     @Override
     public StateMachineContext<String, String> read(String contextObj) {
         log.info("start to read from database {}", contextObj);
-        /*return repository
-                .findByEntityId(contextObj)
-                .map(context -> {
-                    StateMachineContext<String, String> stateMachineContext = deserialize(context.getContext());
-                    log.info("read the current state {} ", stateMachineContext.getState());
-                    return stateMachineContext;
-                })
-                .orElse(null);*/
         return repository
                 .findById(contextObj).map(Entity::getEntitySMContext)
                 .map(context -> {
@@ -100,7 +92,7 @@ public class EntityStateMachinePersist implements StateMachinePersist<String, St
 
     private static final ThreadLocal<Kryo> kryoThreadLocal = ThreadLocal.withInitial(() -> {
         Kryo kryo = new Kryo();
-        kryo.addDefaultSerializer(StateMachineContext.class, new StateMachineContextSerializer());
+        kryo.addDefaultSerializer(StateMachineContext.class, new StateMachineContextSerializer<String, String>());
         kryo.addDefaultSerializer(MessageHeaders.class, new MessageHeadersSerializer());
         kryo.addDefaultSerializer(UUID.class, new UUIDSerializer());
         return kryo;

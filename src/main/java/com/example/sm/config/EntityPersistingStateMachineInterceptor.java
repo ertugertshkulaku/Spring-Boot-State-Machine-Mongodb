@@ -5,16 +5,13 @@ import org.springframework.statemachine.support.StateMachineInterceptor;
 import org.springframework.statemachine.persist.StateMachineRuntimePersister;
 import org.springframework.statemachine.persist.AbstractPersistingStateMachineInterceptor;
 
-import java.util.UUID;
-
-public class Entity1PersistingStateMachineInterceptor
+public class EntityPersistingStateMachineInterceptor
         extends AbstractPersistingStateMachineInterceptor<String, String, String>
         implements StateMachineRuntimePersister<String, String, String> {
 
     private final EntityStateMachinePersist persist;
-    //private final MongoDbRepositoryStateMachinePersist machinePersist;
 
-    public Entity1PersistingStateMachineInterceptor(EntityStateMachinePersist entityStateMachinePersist) {
+    public EntityPersistingStateMachineInterceptor(EntityStateMachinePersist entityStateMachinePersist) {
         this.persist = entityStateMachinePersist;
     }
 
