@@ -1,5 +1,7 @@
+
 spring:
   data:
     mongodb:
       uri: mongodb://localhost:27017/sm_mongo_spring
-
+server:
+  port: 8086

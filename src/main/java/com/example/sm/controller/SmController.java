@@ -11,6 +11,7 @@ import org.springframework.statemachine.StateMachine;
 import org.springframework.statemachine.service.StateMachineService;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
+import reactor.core.scheduler.Schedulers;
 
 @Slf4j
 @RestController
@@ -41,13 +42,16 @@ public class SmController {
 
     @GetMapping(value = "/entity")
     public ResponseEntity<Void> changeEvent(@RequestParam String entity1Id, @RequestParam String event) {
-        StateMachine<String, String> sms = stateEntity1EventStateMachineService.acquireStateMachine(entity1Id);
+/*        StateMachine<String, String> sms = stateEntity1EventStateMachineService.acquireStateMachine(entity1Id);
             log.info("entity1Id {}, event {}", entity1Id, event);
             log.info("event {}", sms.getId());
 
             Message<String> message = MessageBuilder.withPayload(event).build();
             sms.sendEvent(Mono.just(message))
-                    .doOnComplete(() -> log.info("event sent {}", event)).subscribe();
+                    .doOnComplete(() -> log.info("event sent {}", event)).subscribe();*/
+        Mono.just(stateEntity1EventStateMachineService.acquireStateMachine(entity1Id))
+                .subscribeOn(Schedulers.boundedElastic())
+                .map(stringStringStateMachine -> stringStringStateMachine.sendEvent(Mono.just(MessageBuilder.withPayload(event).build())).doOnComplete(() -> log.info("event sent {}", event))).subscribe();
         return ResponseEntity.ok().build();
     }
 }
