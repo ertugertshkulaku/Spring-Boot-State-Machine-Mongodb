@@ -42,16 +42,22 @@ public class SmController {
 
     @GetMapping(value = "/entity")
     public ResponseEntity<Void> changeEvent(@RequestParam String entity1Id, @RequestParam String event) {
-/*        StateMachine<String, String> sms = stateEntity1EventStateMachineService.acquireStateMachine(entity1Id);
+     /*   StateMachine<String, String> sms = stateEntity1EventStateMachineService.acquireStateMachine(entity1Id);
             log.info("entity1Id {}, event {}", entity1Id, event);
             log.info("event {}", sms.getId());
 
             Message<String> message = MessageBuilder.withPayload(event).build();
             sms.sendEvent(Mono.just(message))
                     .doOnComplete(() -> log.info("event sent {}", event)).subscribe();*/
+
+
         Mono.just(stateEntity1EventStateMachineService.acquireStateMachine(entity1Id))
                 .subscribeOn(Schedulers.boundedElastic())
-                .map(stringStringStateMachine -> stringStringStateMachine.sendEvent(Mono.just(MessageBuilder.withPayload(event).build())).doOnComplete(() -> log.info("event sent {}", event))).subscribe();
+                .map(stringStringStateMachine ->
+                        stringStringStateMachine.sendEvent(Mono.just(MessageBuilder.withPayload(event).build()))
+                        .doOnComplete(() -> log.info("event sent {}", event))).subscribeOn(Schedulers.boundedElastic()).subscribe();
+
+
         return ResponseEntity.ok().build();
     }
 }
